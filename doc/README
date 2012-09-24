@@ -1,59 +1,66 @@
-###########################################################################
-# mkPirateBox v0.3-1
-# IPKG that installs PirateBox to your fresh OpenWRT router
-# (C) 2011, Christiane Ruetten, cr@23bit.net
-#  Version >0.3  (C) 2012, Matthias Strubel matthias.strubel@aod-rpg.de
+########################################
+# Project :	PirateBox
 #
-# Released under GPLv2, see http://www.gnu.org/licenses/gpl-2.0.html
+# Description :
+# README file for the PirateBox project - documentation at its minimum \o/
 #
-# Changed for using files from http://piratebox.aod-rpg.de 
-#    with this, it is reaching the possibility to serve a shoutbox
+########################################
+
+SUMMARY:
+	IPKG that installs PirateBox to your fresh OpenWRT router
+
+AUTHORS:
+	(0.0 < v < 0.3)		(C) 2011, Christiane Ruetten			cr@23bit.net
+	(0.3 < v < 5.2)		(C) 2012, Matthias Strubel			matthias.strubel@aod-rpg.de
+	(5.2 < v)		(C) 2012, Niels Giorno (aka Menestrel)		lertsenem@yahoo.fr
 
 
+LICENSE:
+	This project is released under GPLv2, see http://www.gnu.org/licenses/gpl-2.0.html
 
 FEATURES:
-  - Install this IPKG on your fresh OpenWRT "Backfire", and out
-    comes (hopefully) a ready-to-use PirateBox, a project by NYU
-    Professor David Darts.
-  - Now supports devices with 4 MByte flash
-  - See https://github.com/MaStr/mkPirateBox/wiki for current
-    router support status.
-  - Runs with lighttpd Webserver
+	- Install this IPKG on your fresh OpenWRT "Backfire", and out
+	comes (hopefully) a ready-to-use PirateBox, a project by NYU
+	Professor David Darts.
+	- Now supports devices with 4 MByte flash
+	- See https://github.com/MaStr/mkPirateBox/wiki for current
+	router support status.
+	- Runs with lighttpd Webserver
 
 TODO:
-  - Test other platforms
-  - Improve error checking
-  - Does not cleanly update, yet. "opkg remove piratebox" first.
+	- Test other platforms
+	- Improve error checking
+	- Does not cleanly update, yet. "opkg remove piratebox" first.
 
 PLEASE HELP:
-  - I expect mkPirateBox v0.2+ to run on many or even most untested
-    router models. If something goes wrong, I usually can easily make
-    it work if you help me out. If you decide to try mkPirateBox on
-    an untested router model, please send send me feedback on how it
-    went, including
-    - your router model
-    - output of the command
-      "cat /etc/openwrt_release /etc/config/wireless /etc/config/network".
-  - Thanks! :)
+	PirateBox v0.2+ is expected to run on many or even most untested
+	router models. If something goes wrong, I usually can easily make
+	it work if you help me out. If you decide to try mkPirateBox on
+	an untested router model, please send send me feedback on how it
+	went, including
+	- your router model
+	- output of the command
+	"cat /etc/openwrt_release /etc/config/wireless /etc/config/network".
+	- Thanks! :)
 
 REQUIREMENTS:
-  - See https://github.com/MaStr/mkPirateBox/wiki/Requirements
-    and https://github.com/MaStr/mkPirateBox/wiki/Router-support
+	See https://github.com/MaStr/mkPirateBox/wiki/Requirements
+	and https://github.com/MaStr/mkPirateBox/wiki/Router-support
 
 INSTALL:
-  - See https://github.com/MaStr/mkPirateBox/wiki/Installation
+	See https://github.com/MaStr/mkPirateBox/wiki/Installation
 
 USAGE:
-  - See https://github.com/MaStr/mkPirateBox/wiki/Usage
-  
+	See https://github.com/MaStr/mkPirateBox/wiki/Usage
+
 
 REFERENCES:
-  - The PirateBox project:
-    http://wiki.daviddarts.com/PirateBox_DIY
-  - OpenWRT - List of supported devices:
-    http://wiki.openwrt.org/toh/start
-  - OpenWRT documentation (look for tftp installation):
-    http://wiki.openwrt.org/doc/start
-  - OpenWRT "Backfire" 10.04.1-r4 images:
-    http://downloads.openwrt.org/backfire/10.03.1-rc4/
+	- The PirateBox project:
+	http://wiki.daviddarts.com/PirateBox_DIY
+	- OpenWRT - List of supported devices:
+	http://wiki.openwrt.org/toh/start
+	- OpenWRT documentation (look for tftp installation):
+	http://wiki.openwrt.org/doc/start
+	- OpenWRT "Backfire" 10.04.1-r4 images:
+	http://downloads.openwrt.org/backfire/10.03.1-rc4/
 
