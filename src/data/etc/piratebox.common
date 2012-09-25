@@ -21,11 +21,27 @@ pb_pb_srcImg_url="http://piratebox.aod-rpg.de/piratebox_ws_img.tar.gz"
 #############################################################################
 # PirateBox helper functions
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_nodns() {
   # disable local DNS per dnsmasq
   cp /tmp/resolv.conf.auto /tmp/resolv.conf
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_usbwait() {
   # wait for USB device to show up
   if [ ! -e "$pb_usbdevice" ]
@@ -45,10 +61,26 @@ pb_usbwait() {
   fi
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_ismounted() {
   mount | grep "on $1 " >/dev/null
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_mount() {
   parts=$*
   [ "$parts" == "-a" ] && parts="usb ext swap pb"
@@ -92,6 +124,14 @@ pb_mount() {
   done
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_umount() {
   parts=$*
   [ "$parts" == "-a" ] && parts="swap ext usb pb"
@@ -145,6 +185,14 @@ pb_umount() {
   done
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_uciadd() {
   local config=$1 ; shift
   local section=$1 ; shift
@@ -155,18 +203,36 @@ pb_uciadd() {
   uci set "$config.$section=$type"
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_uciset() {
   local config=$1 ; shift
   local section=$1 ; shift
   local type=$1 ; shift
+
   pb_uciadd $config $section $type
-  for opt in "$@"
-  do
+  
+  for opt in "$@"; do
     uci set "$config.$section.$opt"
   done
+
   uci commit
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_netconfig() {
   # reconfigure network
   uci set "system.@system[0].hostname=$pb_hostname"
@@ -205,6 +271,14 @@ pb_netconfig() {
 
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_usbconfig() {
   # prepare USB disk for mounting
   [ -d "$pb_usbmount" ] || mkdir -p "$pb_usbmount"
@@ -218,6 +292,14 @@ pb_usbconfig() {
 
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_undoconfig() {
   # undo config changes
   uci delete dhcp.piratebox
@@ -237,10 +319,26 @@ pb_undoconfig() {
   [ -d "$pb_pbmount"  ] && rmdir "$pb_pbmount"
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_needswap() {
   [ ! -e "$pb_swapimg" ]
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_mkswap() {
   pb_umount swap
   pb_mount usb
@@ -253,12 +351,28 @@ pb_mkswap() {
     enabled=1
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_needextimg() {
   # [ ! -e "$pb_extimg" ]
   # always re-create ext image because of opkg woes
   true
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_mkextimg() {
   pb_umount ext
   pb_mount usb
@@ -275,10 +389,22 @@ pb_mkextimg() {
     enabled=1
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_mkpbimg () {
    pb_umount pb
    pb_mount usb
+
+   # CHECKS existence of directory for PB image -or create it
    [ -d "$(dirname $pb_pbimg)" ] || mkdir -p "$(dirname $pb_pbimg)"
+
+   # CHECKS existenc of PB image -or download it
    if [ ! -e $pb_pb_srcImg ] ; then
       echo "No PirateBox Image file found... loading from Internet"
       wget -O $pb_pb_srcImg  $pb_pb_srcImg_url 
@@ -287,8 +413,10 @@ pb_mkpbimg () {
 	 exit 5
       fi
    fi
-   #gzip -dc  "$pb_pb_srcImg" > "$pb_pbimg" 
+
+   # Untar PB image
    tar xzO -f "$pb_pb_srcImg" > "$pb_pbimg" 
+
    pb_uciset fstab pirateimage mount \
         target=$pb_pbmount \
 	device=$pb_pbimg \
@@ -296,6 +424,14 @@ pb_mkpbimg () {
 	enabled=1
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_init() {
   echo "${initscript}: Mounting external USB storage..."
 
@@ -332,6 +468,14 @@ pb_init() {
 
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_update() {
   pb_mount ext
 
@@ -370,7 +514,15 @@ pb_update() {
 #  /etc/init.d/lighttpd disable
 }
 
-#Removes current image file and overwrite it with new one
+#
+# Description :	
+# Removes current image file and overwrite it with new one
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_updatePBImage () {
     echo "Unmounting $pb_pbmount"
     pb_umount pb  
@@ -384,6 +536,14 @@ pb_updatePBImage () {
 }
 
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_start() {
   pb_mount usb ext swap pb
 
@@ -405,6 +565,14 @@ pb_start() {
   $pb_pbmount/init.d/piratebox_router start
 }
 
+#
+# Description :	
+#
+# Arguments :	
+#
+# Returns :	
+#
+# ======================================
 pb_stop() {
   # killing all piratebox processes
   $pb_pbmount/init.d/piratebox_router stop
